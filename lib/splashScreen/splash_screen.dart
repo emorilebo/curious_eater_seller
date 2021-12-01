@@ -12,7 +12,7 @@ class MySplashScreen extends StatefulWidget {
 
 class _MySplashScreenState extends State<MySplashScreen> {
   startTimer() {
-    Timer(const Duration(seconds: 8), () async {
+    Timer(const Duration(seconds: 4), () async {
       Navigator.push(
           context, MaterialPageRoute(builder: (c) => const AuthScreen()));
     });
@@ -33,7 +33,10 @@ class _MySplashScreenState extends State<MySplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("images/splash.jpg"),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Image.asset("images/splash.jpg"),
+              ),
               const SizedBox(
                 height: 10,
               ),
