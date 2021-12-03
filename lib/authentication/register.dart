@@ -171,8 +171,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "lng": position!.longitude,
     });
     //save data locally
-    SharedPreferences? sharedPreferences;
-    await sharedPreferences!.setString("uid", currentUser.uid);
+    SharedPreferences? sharedPreferences =
+        await SharedPreferences.getInstance();
+    await sharedPreferences.setString("uid", currentUser.uid);
     await sharedPreferences.setString("name", nameController.text.trim());
     await sharedPreferences.setString("photoUrl", sellerImageUrl);
   }
