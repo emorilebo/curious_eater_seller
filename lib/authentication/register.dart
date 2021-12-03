@@ -118,14 +118,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ElevatedButton(
               onPressed: () => print("Clicked"),
               child: const Text(
-                "Sign Up",
+                "Sign Up as an Engineer",
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               style: ElevatedButton.styleFrom(
-                primary: Colors.redAccent,
+                primary: Colors.blue,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
               ),
             ),
             const SizedBox(
