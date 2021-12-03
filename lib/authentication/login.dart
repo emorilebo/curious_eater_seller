@@ -15,57 +15,61 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Image.asset(
-                "images/seller.png",
-                height: 270,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Image.asset(
+                  "images/seller.png",
+                  height: 270,
+                ),
               ),
             ),
-          ),
-          Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                CustomTextField(
-                  data: Icons.email,
-                  controller: emailController,
-                  hintText: "Email",
-                  isObscure: false,
-                ),
-                CustomTextField(
-                  data: Icons.lock,
-                  controller: passwordController,
-                  hintText: "Password",
-                  isObscure: true,
-                ),
-              ],
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  CustomTextField(
+                    data: Icons.email,
+                    controller: emailController,
+                    hintText: "Email",
+                    isObscure: false,
+                  ),
+                  CustomTextField(
+                    data: Icons.lock,
+                    controller: passwordController,
+                    hintText: "Password",
+                    isObscure: true,
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          ElevatedButton(
-            onPressed: () => print("Clicked"),
-            child: const Text(
-              "Login as an Engineer",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            const SizedBox(
+              height: 30,
             ),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.blue,
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+            ElevatedButton(
+              onPressed: () => print("Clicked"),
+              child: const Text(
+                "Login as an Engineer",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-        ],
+            const SizedBox(
+              height: 30,
+            ),
+          ],
+        ),
       ),
     );
   }

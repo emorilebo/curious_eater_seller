@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uber_seller/widgets/custom_text_field.dart';
 
@@ -19,14 +21,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController locationController = TextEditingController();
+
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
+
+  Position? position;
+  List<Placemark>? placeMarks;
 
   Future<void> _getImage() async {
     imageXFile = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       imageXFile;
     });
+  }
+
+  getCurrentLocation() async {
+    Position newPosition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    position = newPosition;
+    placeMarks = await placemarkFromCoordinates(
+      position!.latitude,
+      position!.longitude,
+    );
+    Placemark pMark = placeMarks![0];
+
+    String completeAddress =
+        '${pMark.subThoroughfare} ${pMark.thoroughfare}, ${pMark.subLocality} ${pMark.locality}, ${pMark.subAdministrativeArea}, ${pMark.administrativeArea} ${pMark.postalCode}, ${pMark.country}';
+    locationController.text = completeAddress;
   }
 
   @override
@@ -100,14 +121,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: locationController,
                     hintText: "Work or Home Address",
                     isObscure: false,
-                    enabled: false,
+                    enabled: true,
                   ),
                   Container(
                     width: 400,
                     height: 40,
                     alignment: Alignment.center,
                     child: ElevatedButton.icon(
-                      onPressed: () => print("clicked"),
+                      onPressed: () {
+                        getCurrentLocation();
+                      },
                       icon: const Icon(Icons.location_on, color: Colors.white),
                       label: const Text(
                         "Get my location",
