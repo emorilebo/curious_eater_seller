@@ -136,6 +136,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     )
         .then((auth) {
       currentUser = auth.user;
+    }).catchError((error) {
+      Navigator.pop(context);
+      showDialog(
+        context: context,
+        builder: (c) {
+          return ErrorDialog(
+            message: error.message.toString(),
+          );
+        },
+      );
     });
     if (currentUser != null) {
       saveDataToFirestore(currentUser!).then((value) {
