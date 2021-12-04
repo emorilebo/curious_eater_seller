@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uber_seller/global/global.dart';
+import 'package:uber_seller/mainScreens/home_screen.dart';
 import 'package:uber_seller/widgets/custom_text_field.dart';
 import 'package:uber_seller/widgets/error_dialog.dart';
 import 'package:uber_seller/widgets/loading_dialog.dart';
@@ -21,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   formValidation() {
     if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
       //Login
+      loginNow();
     } else {
       showDialog(
         context: context,
@@ -61,7 +63,13 @@ class _LoginScreenState extends State<LoginScreen> {
         },
       );
     });
-    if (currentUser != null) {}
+    if (currentUser != null) {
+      readDataAndSetDataLocally(currentUser!).then((value) {
+        Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => const HomeScreen()));
+      });
+    }
   }
 
   Future readDataAndSetDataLocally(User currentUser) async {
