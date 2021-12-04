@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:uber_seller/global/global.dart';
 import 'package:uber_seller/widgets/custom_text_field.dart';
+import 'package:uber_seller/widgets/error_dialog.dart';
+import 'package:uber_seller/widgets/loading_dialog.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -19,9 +24,60 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       showDialog(
         context: context,
-        builder: builder,
+        builder: (c) {
+          return ErrorDialog(
+            message: "Please write email/password.",
+          );
+        },
       );
     }
+  }
+
+  loginNow() async {
+    showDialog(
+      context: context,
+      builder: (c) {
+        return LoadingDialog(
+          message: "Checking Credentials.",
+        );
+      },
+    );
+    User? currentUser;
+    await firebaseAuth
+        .signInWithEmailAndPassword(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+    )
+        .then((auth) {
+      currentUser = auth.user!;
+    }).catchError((error) {
+      Navigator.pop(context);
+      showDialog(
+        context: context,
+        builder: (c) {
+          return ErrorDialog(
+            message: error.message.toString(),
+          );
+        },
+      );
+    });
+    if (currentUser != null) {}
+  }
+
+  Future readDataAndSetDataLocally(User currentUser) async {
+    await FirebaseFirestore.instance
+        .collection("sellers")
+        .doc(currentUser.uid)
+        .get()
+        .then((snapshot) async {
+      await sharedPreferences!.setString("uid", currentUser.uid);
+      await sharedPreferences!
+          .setString("email", snapshot.data()!["sellerEmail"]);
+      await sharedPreferences!
+          .setString("name", snapshot.data()!["sellerName"]);
+      await sharedPreferences!
+          .setString("photoUrl", snapshot.data()!["sellerAvatarUrl"]);
+    });
   }
 
   @override
