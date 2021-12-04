@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uber_seller/authentication/auth_screen.dart';
 import 'package:uber_seller/global/global.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,10 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Center(
         child: ElevatedButton(
-          child: Text("Logout"),
+          child: const Text("Logout"),
           style: ElevatedButton.styleFrom(primary: Colors.cyan),
           onPressed: () {
-            firebaseAuth.signOut();
+            firebaseAuth.signOut().then((value) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (c) => const AuthScreen()));
+            });
           },
         ),
       ),

@@ -12,6 +12,18 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  formValidation() {
+    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+      //Login
+    } else {
+      showDialog(
+        context: context,
+        builder: builder,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -53,7 +65,9 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 30,
             ),
             ElevatedButton(
-              onPressed: () => print("Clicked"),
+              onPressed: () {
+                formValidation();
+              },
               child: const Text(
                 "Login as an Engineer",
                 style:

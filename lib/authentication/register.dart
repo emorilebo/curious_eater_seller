@@ -46,6 +46,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
   }
 
+//   Future<LocationData> _getLocation() async {
+//   LocationData currentLocation;
+
+//   // returns a map with unreadable numbers which make no sense
+//   var t = await PermissionHandler()
+//       .requestPermissions([PermissionGroup.location]);
+
+//   // returns false
+//   var test = await location.requestPermission();
+
+//   try {
+//     currentLocation = await location.getLocation();
+//   } catch (e) {
+//     currentLocation = null;
+//   }
+//   return currentLocation;
+// }
+
   getCurrentLocation() async {
     Position newPosition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -151,7 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       saveDataToFirestore(currentUser!).then((value) {
         Navigator.pop(context);
         //send the user to homepage
-        Route newRoute = MaterialPageRoute(builder: (c) => HomeScreen());
+        Route newRoute = MaterialPageRoute(builder: (c) => const HomeScreen());
         Navigator.pushReplacement(context, newRoute);
       });
     }
