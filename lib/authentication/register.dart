@@ -7,6 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uber_seller/global/global.dart';
 import 'package:uber_seller/mainScreens/home_screen.dart';
 import 'package:uber_seller/widgets/custom_text_field.dart';
 import 'package:uber_seller/widgets/error_dialog.dart';
@@ -82,7 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             context: context,
             builder: (c) {
               return LoadingDialog(
-                message: "Registering Account\n",
+                message: "Registering Account",
               );
             },
           );
@@ -127,7 +128,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void authenticateSellerAndSignUp() async {
     User? currentUser;
-    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
     await firebaseAuth
         .createUserWithEmailAndPassword(
@@ -171,11 +171,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "lng": position!.longitude,
     });
     //save data locally
-    SharedPreferences? sharedPreferences =
-        await SharedPreferences.getInstance();
-    await sharedPreferences.setString("uid", currentUser.uid);
-    await sharedPreferences.setString("name", nameController.text.trim());
-    await sharedPreferences.setString("photoUrl", sellerImageUrl);
+    sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences!.setString("uid", currentUser.uid);
+    await sharedPreferences!.setString("email", currentUser.email.toString());
+    await sharedPreferences!.setString("name", nameController.text.trim());
+    await sharedPreferences!.setString("photoUrl", sellerImageUrl);
   }
 
   @override
