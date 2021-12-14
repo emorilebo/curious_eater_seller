@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uber_seller/authentication/auth_screen.dart';
 import 'package:uber_seller/global/global.dart';
+import 'package:uber_seller/widgets/my_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,12 +14,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MyDrawer(),
       appBar: AppBar(
         title: Text(
           sharedPreferences!.getString("name")!,
         ),
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -34,18 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text("Logout"),
-          style: ElevatedButton.styleFrom(primary: Colors.cyan),
-          onPressed: () {
-            firebaseAuth.signOut().then((value) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (c) => const AuthScreen()));
-            });
-          },
-        ),
-      ),
+      body: Center(),
     );
   }
 }
