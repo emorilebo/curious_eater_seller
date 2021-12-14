@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uber_seller/authentication/auth_screen.dart';
 import 'package:uber_seller/global/global.dart';
+import 'package:uber_seller/uploadScreens/menu_upload_screen.dart';
 import 'package:uber_seller/widgets/my_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,6 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
         automaticallyImplyLeading: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (c) => const MenusUploadScreen()));
+            },
+            icon: const Icon(Icons.post_add, color: Colors.white),
+          ),
+        ],
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
