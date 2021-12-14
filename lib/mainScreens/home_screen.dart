@@ -19,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(
           sharedPreferences!.getString("name")!,
+          style: const TextStyle(fontSize: 30, fontFamily: 'Lobster'),
         ),
         centerTitle: true,
         automaticallyImplyLeading: true,
