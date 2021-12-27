@@ -348,6 +348,11 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
       'status': 'available',
       'thumbnailUrl': downloadUrl,
     });
+    clearMenuUploadForm();
+    setState(() {
+      uniqueIdName = '';
+      uploading = false;
+    });
   }
 
   uploadImage(mImageFile) async {
