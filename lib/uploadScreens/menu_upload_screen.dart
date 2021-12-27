@@ -245,7 +245,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
                 style: const TextStyle(color: Colors.black),
                 controller: shortInfoController,
                 decoration: const InputDecoration(
-                    hintText: 'menu info',
+                    hintText: 'Menu info',
                     hintStyle: TextStyle(color: Colors.grey),
                     border: InputBorder.none),
               ),
