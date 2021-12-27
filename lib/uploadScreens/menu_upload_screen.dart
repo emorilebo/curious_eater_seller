@@ -342,7 +342,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
     ref.doc(uniqueIdName).set({
       'menuID': uniqueIdName,
       'sellerUID': sharedPreferences!.getString('uid'),
-      'menuInfo': shortInfoController.text.toString();
+      'menuInfo': shortInfoController.text.toString(),
       'menuTitle': titleController.text.toString(),
       'publishedDate': DateTime.now(),
       'status': 'available',
