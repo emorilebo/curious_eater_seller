@@ -6,6 +6,7 @@ import 'package:uber_seller/global/global.dart';
 import 'package:uber_seller/mainScreens/home_screen.dart';
 import 'package:uber_seller/widgets/error_dialog.dart';
 import 'package:uber_seller/widgets/progress_bar.dart';
+import 'package:firebase_storage/firebase_storage.dart' as storageRef;
 
 class MenusUploadScreen extends StatefulWidget {
   const MenusUploadScreen({Key? key}) : super(key: key);
@@ -22,6 +23,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
   TextEditingController titleController = TextEditingController();
 
   bool uploading = false;
+  String uniqueIdName = DateTime.now().millisecondsSinceEpoch.toString();
 
   defaultScreen() {
     return Scaffold(
@@ -294,7 +296,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
     });
   }
 
-  validateUploadForm() {
+  validateUploadForm() async {
     if (imageXFile != null) {
       if (shortInfoController != null) {
         if (shortInfoController.text.isNotEmpty &&
@@ -302,7 +304,8 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
           setState(() {
             uploading = true;
           });
-          //Upload imafe
+          //Upload image
+          String downloadUrl = await uploadImage(File(imageXFile!.path));
           //Save info to firestore
         } else {
           showDialog(
@@ -325,6 +328,14 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
         },
       );
     }
+  }
+
+  uploadImage(mImageFile) async {
+    storageRef.Reference reference =
+        storageRef.FirebaseStorage.instance.ref().child('menus');
+
+    storageRef.UploadTask uploadTask =
+        reference.child(uniqueIdName + '.jpg').putFile(mImageFile);
   }
 
   @override
