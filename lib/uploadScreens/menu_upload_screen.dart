@@ -350,7 +350,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
     });
     clearMenuUploadForm();
     setState(() {
-      uniqueIdName = '';
+      uniqueIdName = DateTime.now().millisecondsSinceEpoch.toString();
       uploading = false;
     });
   }
