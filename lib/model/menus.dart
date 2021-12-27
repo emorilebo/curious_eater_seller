@@ -27,4 +27,16 @@ class Menus {
     thumbnailUrl = json['thumbnailUrl'];
     status = json['status'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['menuID'] = menuID;
+    data['sellerUID'] = sellerUID;
+    data['menuTitle'] = menuTitle;
+    data['menuInfo'] = menuInfo;
+    data['publishedDate'] = publishedDate;
+    data['status'] = status;
+
+    return data;
+  }
 }
