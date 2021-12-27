@@ -307,6 +307,8 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
           //Upload image
           String downloadUrl = await uploadImage(File(imageXFile!.path));
           //Save info to firestore
+
+          saveInfo(downloadUrl, shortInfoController.text, titleController.text);
         } else {
           showDialog(
             context: context,
@@ -330,12 +332,17 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
     }
   }
 
+  saveInfo(String downloadUrl, String shortInfo, String titleMenu) {}
+
   uploadImage(mImageFile) async {
     storageRef.Reference reference =
         storageRef.FirebaseStorage.instance.ref().child('menus');
 
     storageRef.UploadTask uploadTask =
         reference.child(uniqueIdName + '.jpg').putFile(mImageFile);
+    storageRef.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
+    String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+    return downloadUrl;
   }
 
   @override
