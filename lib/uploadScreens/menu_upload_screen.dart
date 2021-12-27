@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uber_seller/global/global.dart';
@@ -308,7 +309,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
           String downloadUrl = await uploadImage(File(imageXFile!.path));
           //Save info to firestore
 
-          saveInfo(downloadUrl, shortInfoController.text, titleController.text);
+          saveInfo(downloadUrl);
         } else {
           showDialog(
             context: context,
@@ -332,7 +333,22 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
     }
   }
 
-  saveInfo(String downloadUrl, String shortInfo, String titleMenu) {}
+  saveInfo(String downloadUrl) {
+    final ref = FirebaseFirestore.instance
+        .collection('sellers')
+        .doc(sharedPreferences!.getString('uid'))
+        .collection('menus');
+
+    ref.doc(uniqueIdName).set({
+      'menuID': uniqueIdName,
+      'sellerUID': sharedPreferences!.getString('uid'),
+      'menuInfo': shortInfoController.text.toString();
+      'menuTitle': titleController.text.toString(),
+      'publishedDate': DateTime.now(),
+      'status': 'available',
+      'thumbnailUrl': downloadUrl,
+    });
+  }
 
   uploadImage(mImageFile) async {
     storageRef.Reference reference =
