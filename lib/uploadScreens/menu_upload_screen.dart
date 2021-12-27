@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uber_seller/global/global.dart';
 import 'package:uber_seller/mainScreens/home_screen.dart';
+import 'package:uber_seller/widgets/progress_bar.dart';
 
 class MenusUploadScreen extends StatefulWidget {
   const MenusUploadScreen({Key? key}) : super(key: key);
@@ -18,6 +19,8 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
 
   TextEditingController shortInfoController = TextEditingController();
   TextEditingController titleController = TextEditingController();
+
+  bool uploading = false;
 
   defaultScreen() {
     return Scaffold(
@@ -181,7 +184,9 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              validateUploadForm();
+            },
             child: const Text(
               'Add',
               style: TextStyle(
@@ -211,6 +216,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
       ),
       body: ListView(
         children: [
+          uploading == true ? linearProgress() : Text(''),
           Container(
             height: 230,
             width: MediaQuery.of(context).size.width * 0.8,
@@ -286,6 +292,12 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
       shortInfoController.clear();
       titleController.clear();
       imageXFile = null;
+    });
+  }
+
+  validateUploadForm() {
+    setState(() {
+      uploading = true;
     });
   }
 
