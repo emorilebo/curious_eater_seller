@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
       context: context,
       builder: (c) {
         return LoadingDialog(
-          message: "Checking Credentials.",
+          message: "Checking Credentials",
         );
       },
     );
