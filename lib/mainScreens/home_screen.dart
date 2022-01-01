@@ -47,7 +47,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: Center(),
+      body: CustomScrollView(
+        slivers:[
+          StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance.collection('sellers').doc(sharedPreferences.getString('uid')),
+            initialData: initialData,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return Container(
+                child: child,
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
