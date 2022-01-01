@@ -190,7 +190,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
           TextButton(
             onPressed: uploading ? null : () => validateUploadForm(),
             child: const Text(
-              'Add',
+              'Add New Post',
               style: TextStyle(
                 color: Colors.cyan,
                 fontWeight: FontWeight.bold,
