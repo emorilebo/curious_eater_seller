@@ -360,7 +360,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
         storageRef.FirebaseStorage.instance.ref().child('menus');
 
     storageRef.UploadTask uploadTask =
-        reference.child(uniqueIdName + '.jpg').putFile(mImageFile);
+        reference.child(uniqueIdName + '.png').putFile(mImageFile);
     storageRef.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
     String downloadUrl = await taskSnapshot.ref.getDownloadURL();
     return downloadUrl;
