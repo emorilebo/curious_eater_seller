@@ -67,7 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       snapshot.data!.docs[index].data()! as Map<String, dynamic>,
                     );
                     return InfoDesignWidget(
-                      
+                      model: model,
+                      context: context,
                     );
                   },
                   itemCount: snapshot.data!.docs.length,
