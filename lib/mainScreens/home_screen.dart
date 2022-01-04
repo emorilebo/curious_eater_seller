@@ -50,7 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CustomScrollView(
         slivers:[
           StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection('sellers').doc(sharedPreferences.getString('uid')),
+            stream: FirebaseFirestore.instance
+            .collection('sellers')
+            .doc(sharedPreferences.getString('uid'))
+            .collection('menus').snapshots(),
             initialData: initialData,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               return Container(
