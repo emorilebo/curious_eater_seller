@@ -56,9 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
             .collection('menus').snapshots(),
             initialData: initialData,
             builder: (context, snapshot) {
-              return Container(
-                child: child,
-              );
+              return !snapshot.hasData 
+                ? SliverToBoxAdapter(
+                  child: Center(child: circularProgress(),),
+                ) : ;
             },
           ),
         ],
