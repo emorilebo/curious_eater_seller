@@ -52,10 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
             .collection('sellers')
-            .doc(sharedPreferences.getString('uid'))
+            .doc(sharedPreferences!.getString('uid'))
             .collection('menus').snapshots(),
             initialData: initialData,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
+            builder: (context, snapshot) {
               return Container(
                 child: child,
               );
