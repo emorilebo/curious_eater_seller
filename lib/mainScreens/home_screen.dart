@@ -62,6 +62,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ) : SliverStaggeredGrid.countBuilder(
                   crossAxisCount: 1,
                   staggeredTileBuilder: (c)=> StaggeredTile.fit(1),
+                  itemBuilder: (context, index){
+                    Menus model = Menus.fromJson(
+                      snapshot.data!.docs[index].data()!
+                    );
+                  }
                 );
             },
           ),
