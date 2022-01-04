@@ -49,9 +49,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: CustomScrollView(
         slivers:[
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: ListTile(
-              title: Text('My Menus'),
+              title: Text('My Menus',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Signatra',
+                fontSize: 30,
+                )
+              ),
             ),
           ),
           StreamBuilder<QuerySnapshot>(
