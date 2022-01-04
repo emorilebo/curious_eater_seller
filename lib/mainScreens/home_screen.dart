@@ -64,9 +64,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   staggeredTileBuilder: (c)=> StaggeredTile.fit(1),
                   itemBuilder: (context, index){
                     Menus model = Menus.fromJson(
-                      snapshot.data!.docs[index].data()!
+                      snapshot.data!.docs[index].data()! as Map<String, dynamic>,
                     );
-                  }
+                    return InfoDesignWidget(
+                      
+                    );
+                  },
+                  itemCount: snapshot.data!.docs.length,
                 );
             },
           ),
