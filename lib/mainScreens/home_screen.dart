@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
         slivers:[
           const SliverToBoxAdapter(
             child: ListTile(
-              title: Text('My Menus',
+              title: Text('MyMenus',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Signatra',
