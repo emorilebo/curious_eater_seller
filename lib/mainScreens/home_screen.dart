@@ -48,42 +48,46 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: CustomScrollView(
-        slivers:[
+        slivers: [
           const SliverToBoxAdapter(
             child: ListTile(
               title: Text('My Menus',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Signatra',
-                fontSize: 30,
-                )
-              ),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Signatra',
+                    fontSize: 30,
+                  )),
             ),
           ),
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
-            .collection('sellers')
-            .doc(sharedPreferences!.getString('uid'))
-            .collection('menus').snapshots(),
+                .collection('sellers')
+                .doc(sharedPreferences!.getString('uid'))
+                .collection('menus')
+                .snapshots(),
             initialData: initialData,
             builder: (context, snapshot) {
-              return !snapshot.hasData 
-                ? SliverToBoxAdapter(
-                  child: Center(child: circularProgress(),),
-                ) : SliverStaggeredGrid.countBuilder(
-                  crossAxisCount: 1,
-                  staggeredTileBuilder: (c)=> StaggeredTile.fit(1),
-                  itemBuilder: (context, index){
-                    Menus model = Menus.fromJson(
-                      snapshot.data!.docs[index].data()! as Map<String, dynamic>,
+              return !snapshot.hasData
+                  ? SliverToBoxAdapter(
+                      child: Center(
+                        child: circularProgress(),
+                      ),
+                    )
+                  : SliverStaggeredGrid.countBuilder(
+                      crossAxisCount: 1,
+                      staggeredTileBuilder: (c) => StaggeredTile.fit(1),
+                      itemBuilder: (context, index) {
+                        Menus model = Menus.fromJson(
+                          snapshot.data!.docs[index].data()!
+                              as Map<String, dynamic>,
+                        );
+                        return InfoDesignWidget(
+                          model: model,
+                          context: context,
+                        );
+                      },
+                      itemCount: snapshot.data!.docs.length,
                     );
-                    return InfoDesignWidget(
-                      model: model,
-                      context: context,
-                    );
-                  },
-                  itemCount: snapshot.data!.docs.length,
-                );
             },
           ),
         ],
